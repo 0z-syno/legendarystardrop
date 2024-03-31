@@ -20,7 +20,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: white; /* Set background color of overlay to white */
+      background-color: rgb(52, 99, 124); /* Set background color of overlay */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -67,15 +67,39 @@
   </audio>
   
   <script>
-    // Function to hide overlay and start media playback
+    // Function to hide overlay, start media playback, and make the video fullscreen
     function startMedia() {
       document.getElementById('overlay').style.display = 'none';
       document.getElementById('videoElement').play();
       document.getElementById('audioElement').play();
+      
+      // Check if the browser supports Fullscreen API
+      if (document.fullscreenEnabled) {
+        // Make the video fullscreen
+        document.getElementById('videoContainer').requestFullscreen();
+      }
+
+      // Retrieve the saved playback position
+      var savedPosition = localStorage.getItem('videoPlaybackPosition');
+      if (savedPosition) {
+        document.getElementById('videoElement').currentTime = parseFloat(savedPosition);
+      }
+
+      // Save the playback position every 5 seconds
+      setInterval(function() {
+        localStorage.setItem('videoPlaybackPosition', document.getElementById('videoElement').currentTime);
+      }, 5000);
     }
 
     // Add event listener to start media playback when the button is clicked
     document.getElementById('acceptButton').addEventListener('click', startMedia);
+
+    // Add event listener to handle beforeunload event
+    window.addEventListener('beforeunload', function(event) {
+      // Prompt the user to save progress
+      event.preventDefault();
+      event.returnValue = '';
+    });
   </script>
 </body>
 </html>
