@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: black; /* Set background color to black */
+      color: white; /* Set text color to white */
+      font-family: Arial, sans-serif; /* Set font family */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Make the overlay cover the entire viewport height */
+    }
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white; /* Set background color of overlay to white */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: black; /* Set text color to black */
+    }
+    #videoContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Ensure the video stays behind the overlay */
+    }
+    #videoElement {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #acceptButton {
+      padding: 10px 20px;
+      background-color: #007bff; /* Blue color for the button */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay">
+    <h1>Legendary Star Drop</h1>
+    <p>To claim your legendary star drop press the button below</p>
+    <button id="acceptButton">CLAIM</button>
+  </div>
+  <div id="videoContainer">
+    <video id="videoElement" loop muted>
+      <source src="media/video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <audio id="audioElement" loop>
+    <source src="media/video.mp4" type="audio/mp4">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <script>
+    // Function to hide overlay and start media playback
+    function startMedia() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('videoElement').play();
+      document.getElementById('audioElement').play();
+    }
+
+    // Add event listener to start media playback when the button is clicked
+    document.getElementById('acceptButton').addEventListener('click', startMedia);
+  </script>
+</body>
+</html>
